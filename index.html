@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#ffffff" />
+  <title>Delivery — Quick List</title>
+
+  <link rel="icon" href="favicon.ico" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="phone">
+    <header class="top">
+      <div class="top__title">
+        <h1>Delivery</h1>
+        <p id="today" class="muted"></p>
+      </div>
+
+      <div class="top__actions">
+        <button id="manageStreetsBtn" class="btn btn--ghost" type="button">Streets</button>
+        <button id="resetBtn" class="btn btn--ghost" type="button">Reset</button>
+      </div>
+    </header>
+
+    <section class="card">
+      <h2>Add</h2>
+
+      <form id="addForm" autocomplete="off">
+        <div class="row">
+          <label class="label grow">
+            Street
+            <div class="dd" id="streetDD">
+              <button id="streetBtn" class="select dd__btn" type="button" aria-haspopup="listbox" aria-expanded="false">
+                <span id="streetBtnLabel" class="dd__label">(Select)</span>
+                <span class="dd__chev" aria-hidden="true">▾</span>
+              </button>
+              <div id="streetMenu" class="dd__menu" role="listbox" aria-label="Street options"></div>
+            </div>
+          </label>
+
+          <label class="label grow">
+            House #
+            <input id="houseNumber" class="input" inputmode="numeric" placeholder="e.g. 12" />
+          </label>
+        </div>
+
+        <div class="row">
+          <label class="label grow">
+            Type
+            <div class="dd" id="typeDD">
+              <button id="typeBtn" class="select dd__btn" type="button" aria-haspopup="listbox" aria-expanded="false">
+                <span id="typeBtnLabel" class="dd__label">—</span>
+                <span class="dd__chev" aria-hidden="true">▾</span>
+              </button>
+              <div id="typeMenu" class="dd__menu" role="listbox" aria-label="Type options"></div>
+            </div>
+          </label>
+
+          <label class="label grow">
+            Note (optional)
+            <input id="note" class="input" placeholder="e.g. inside mailbox, 2B…" />
+          </label>
+        </div>
+
+        <div class="row">
+          <button class="btn btn--primary grow" type="submit">Add</button>
+          <button id="undoBtn" class="btn btn--ghost" type="button">Undo</button>
+        </div>
+
+        <div class="muted" id="addedInfo"></div>
+      </form>
+    </section>
+
+    <section class="card">
+      <div class="listHeader">
+        <h2>Copy &amp; paste</h2>
+        <div class="muted" id="countInfo"></div>
+      </div>
+
+      <textarea id="output" class="textarea output" readonly></textarea>
+
+      <div class="row">
+        <button id="copyBtn" class="btn btn--primary grow" type="button">Copy</button>
+        
+      </div>
+
+      <div class="footerHint muted">
+        Tip: paste this into your notes app. The daily list resets automatically.
+      </div>
+    </section>
+  </main>
+
+  <!-- Modal: manage streets -->
+  <dialog id="streetsDialog" class="dialog">
+    <form method="dialog" class="dialog__panel">
+      <div class="dialog__header">
+        <h3>Streets</h3>
+        <button class="btn btn--ghost" value="close" aria-label="Close">✕</button>
+      </div>
+
+      <p class="muted">
+        Streets load automatically from <code>streets.json</code> and are merged with anything you add on this device.
+      </p>
+
+      <div class="row">
+        <input id="newStreet" class="input grow" placeholder="New street…" />
+        <button id="addStreetBtn" class="btn btn--primary" type="button">Add</button>
+      </div>
+
+      <div class="row">
+        <button id="sortStreetsBtn" class="btn btn--ghost" type="button">Sort A→Z</button>
+        <button id="exportBtn" class="btn btn--ghost" type="button">Export</button>
+        <button id="importBtn" class="btn btn--ghost" type="button">Import</button>
+      </div>
+
+      <textarea id="streetsJson" class="textarea" placeholder="Exported JSON appears here, or paste one to import."></textarea>
+
+      <ul id="streetsList" class="streetsList" aria-label="Street list"></ul>
+
+      <div class="dialog__footer">
+        <button class="btn btn--primary" value="close">Done</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>
